@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Escape SA - Calculate Fees</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F7F4EB;
+            color: #0B132B;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Standardized Navigation Header */
+        header {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #D87040;
+            border-bottom: 2px solid #D87040;
+            padding-bottom: 4px;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Page Title */
+        .page-title-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title-section h1 {
+            color: #0B132B;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .page-title-section p {
+            color: #64748B;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Form Card Container */
+        .calculator-card {
+            background-color: #FFFFFF;
+            border: 2px solid #5A2A18;
+            border-radius: 8px;
+            padding: 32px 36px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-heading {
+            color: #0B132B;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+        }
+
+        /* Form Group & Inputs */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            background-color: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #1E293B;
+            outline: none;
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        /* Action Button */
+        .btn-cyan {
+            background-color: #00E5E8;
+            color: #0B132B;
+            border: none;
+            padding: 12px 0;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            margin-bottom: 18px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cyan:hover {
+            background-color: #00C4C7;
+        }
+
+        /* Error Message Box */
+        .error-message {
+            color: #D9534F;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        /* Result Display Box */
+        .result-box {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            border-radius: 4px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .result-amount {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .result-subtext {
+            font-size: 10px;
+            color: #00E5E8;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Standardized Header -->
+    <header>
+        <a href="index.html" class="logo">ADVENTURE ESCAPE SA</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="overview.html">Overview</a></li>
+                <li><a href="fees.html" class="active">Calculate Fees</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-title-section">
+            <h1>Adventure Fee Estimator</h1>
+            <p>Select your package and activity combinations below.</p>
+        </section>
+
+        <div class="calculator-card">
+            <div class="card-heading">PACKAGE & GUEST SELECTION</div>
+
+            <form id="feeForm" onsubmit="event.preventDefault(); calculateTotal();">
+                
+                <!-- Dropdown 1: Adventure Package (R1,500) -->
+                <div class="form-group">
+                    <label for="packageSelect">Select Adventure Package (Optional - R1,500)</label>
+                    <select id="packageSelect" class="form-control">
+                        <option value="" selected>-- None / Skip Package --</option>
+                        <option value="ultimate">Ultimate Adventure Day (R 1,500 pp)</option>
+                        <option value="family">Family Explorer Package (R 1,500 pp)</option>
+                        <option value="mountain">Mountain Adventure Package (R 1,500 pp)</option>
+                        <option value="corporate">Corporate Team Challenge (R 1,500 pp)</option>
+                    </select>
+                </div>
+
+                <!-- Dropdown 2: Individual Activity (R750) -->
+                <div class="form-group">
+                    <label for="activitySelect">Select Individual Activity (Optional - R750)</label>
+                    <select id="activitySelect" class="form-control">
+                        <option value="" selected>-- None / Skip Activity --</option>
+                        <option value="ziplining">Ziplining Adventure (R 750 pp)</option>
+                        <option value="kayaking">Kayaking Experience (R 750 pp)</option>
+                        <option value="climbing">Rock Climbing Session (R 750 pp)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="guestCount">Number of Guests</label>
+                    <input type="number" id="guestCount" class="form-control" placeholder="e.g. 2" min="1" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="promoCode">Promo / Discount Code (Optional)</label>
+                    <input type="text" id="promoCode" class="form-control" placeholder="Enter code here (e.g., ESCAPE10)">
+                </div>
+
+                <div id="errorDisplay" class="error-message"></div>
+
+                <button type="submit" class="btn-cyan">CALCULATE TOTAL</button>
+            </form>
+
+            <div class="result-box">
+                <div class="result-amount" id="totalDisplay">Estimated Total: R 0.00</div>
+                <div class="result-subtext" id="discountDisplay">Includes volume discounts and VAT (15%)</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Adventure Escape SA. All Rights Reserved. | Western Cape, South Africa
+    </footer>
+
+    <script>
+        const packagePrices = {
+            ultimate: 1500,
+            family: 1500,
+            mountain: 1500,
+            corporate: 1500,
+            ziplining: 750,
+            kayaking: 750,
+            climbing: 750
+        };
+
+        function calculateTotal() {
+            const packageKey = document.getElementById('packageSelect').value;
+            const activityKey = document.getElementById('activitySelect').value;
+            const guestInput = document.getElementById('guestCount').value;
+            const promoCode = document.getElementById('promoCode').value.trim().toUpperCase();
+            const errorDisplay = document.getElementById('errorDisplay');
+            const totalDisplay = document.getElementById('totalDisplay');
+            const discountDisplay = document.getElementById('discountDisplay');
+
+            // Clear previous errors
+            errorDisplay.style.display = 'none';
+            errorDisplay.textContent = '';
+
+            // Validation: at least one selection must be made
+            if (!packageKey && !activityKey) {
+                errorDisplay.textContent = "Error: Please select at least one Adventure Package or Individual Activity.";
+                errorDisplay.style.display = 'block';
+                return;
+            }
+
+            const guests = parseInt(guestInput);
+            if (isNaN(guests) || guests <= 0) {
+                errorDisplay.textContent = "Error: Please enter a valid number of guests (minimum 1).";
+                errorDisplay.style.display = 'block';
+                return;
+            }
+
+            if (guests > 50) {
+                errorDisplay.textContent = "Error: Group bookings cannot exceed 50 guests online. Please contact us directly.";
+                errorDisplay.style.display = 'block';
+                return;
+            }
+
+            // Calculate subtotal based on what was selected
+            let subtotal = 0;
+            let selectedCount = 0;
+
+            if (packageKey) {
+                subtotal += packagePrices[packageKey] * guests;
+                selectedCount++;
+            }
+            if (activityKey) {
+                subtotal += packagePrices[activityKey] * guests;
+                selectedCount++;
+            }
+
+            // Volume discount rules based on number of selected items:
+            // 1 selection = no discount
+            // 2 selections (Package + Activity) = 5% discount
+            let discountPercentage = 0;
+            if (selectedCount === 2) {
+                discountPercentage = 0.05;
+            }
+
+            let discountAmount = subtotal * discountPercentage;
+            let totalAfterVolume = subtotal - discountAmount;
+
+            // Optional promo code check ("ESCAPE10" gives an extra 10%)
+            let promoDiscountAmount = 0;
+            if (promoCode === "ESCAPE10") {
+                promoDiscountAmount = totalAfterVolume * 0.10;
+                totalAfterVolume -= promoDiscountAmount;
+            }
+
+            // Format amount to South African Rands (ZAR)
+            const formattedTotal = totalAfterVolume.toLocaleString('en-ZA', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            totalDisplay.textContent = `Estimated Total: R ${formattedTotal}`;
+            
+            let discountText = `Includes VAT (15%)`;
+            if (discountPercentage > 0) {
+                discountText += ` | Multi-Booking Discount Applied (${discountPercentage * 100}%)`;
+            }
+            if (promoCode === "ESCAPE10") {
+                discountText += ` + Extra 10% Promo Code`;
+            }
+            discountDisplay.textContent = discountText;
+        }
+    </script>
+
+</body>
+</html>

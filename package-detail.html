@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Escape SA - Table Mountain Guided Summit Hike</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #F5F3EF;
+            color: #1E293B;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: #0B132B;
+            padding: 18px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 11px;
+            margin-left: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        nav a:hover {
+            color: #E27227;
+        }
+
+        /* Main Content Container */
+        main {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 32px 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Back Link & Title Area */
+        .breadcrumb {
+            font-size: 10px;
+            color: #64748B;
+            margin-bottom: 8px;
+        }
+
+        .breadcrumb a {
+            color: #64748B;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-title {
+            color: #0B132B;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        /* Two-Column Layout */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* Left Column Content */
+        .hero-image-container {
+            width: 100%;
+            height: 280px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .info-card {
+            background-color: #FFFFFF;
+            border: 1.5px solid #4A150B;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .section-title {
+            color: #E27227;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-title:not(:first-child) {
+            margin-top: 20px;
+        }
+
+        .info-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            font-size: 10.5px;
+            color: #475569;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 14px;
+            margin-bottom: 6px;
+        }
+
+        .info-card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #475569;
+        }
+
+        /* Right Column - Booking Card */
+        .booking-card {
+            background-color: #FFFFFF;
+            border: 1.5px solid #4A150B;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .booking-header {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .booking-body {
+            padding: 20px;
+        }
+
+        .price-display {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0B132B;
+            margin-bottom: 18px;
+        }
+
+        .price-unit {
+            font-size: 10px;
+            font-weight: 500;
+            color: #64748B;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 10px;
+            background-color: #F5F3EF;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #1E293B;
+            outline: none;
+        }
+
+        /* Checkbox Add-ons */
+        .addon-group {
+            margin: 16px 0;
+        }
+
+        .addon-group label.addon-title {
+            display: block;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 8px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 9.5px;
+            color: #475569;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            accent-color: #00D2D3;
+        }
+
+        /* Total Summary Box */
+        .summary-box {
+            background-color: #F5F3EF;
+            border-radius: 4px;
+            padding: 12px;
+            margin: 18px 0;
+            font-size: 10px;
+        }
+
+        .summary-line {
+            color: #64748B;
+            margin-bottom: 4px;
+        }
+
+        .summary-total {
+            color: #0B132B;
+            font-weight: 800;
+            font-size: 11px;
+        }
+
+        /* Action Button */
+        .btn-cyan {
+            background-color: #00D2D3;
+            color: #000000;
+            border: none;
+            padding: 11px 0;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-cyan:hover {
+            background-color: #00b8b9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 16px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 800px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+            nav a {
+                margin: 0 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ADVENTURE ESCAPE SA</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="overview.html">Overview</a>
+            <a href="fees.html">Calculate Fees</a>
+            <a href="contact.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="breadcrumb">
+            <a href="overview.html">&larr; Back to Overview</a> / Table Mountain Hiking
+        </div>
+
+        <h1 class="page-title">Table Mountain Guided Summit Hike</h1>
+
+        <div class="detail-grid">
+            <!-- Left Side: Image & Content -->
+            <div class="left-column">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?auto=format&fit=crop&w=1200&q=80" alt="Table Mountain Summit View">
+                </div>
+
+                <div class="info-card">
+                    <h2 class="section-title">Package Itinerary & Highlights</h2>
+                    <ul>
+                        <li>Professional SANParks accredited mountain guide.</li>
+                        <li>Scenic ascent via Platteklip Gorge with structured rest breaks.</li>
+                        <li>Panoramic views of Table Bay, Robben Island, and Cape Town city bowl.</li>
+                    </ul>
+
+                    <h2 class="section-title">Equipment & Safety Requirements</h2>
+                    <ul>
+                        <li>Safety gear and first-aid equipped guide included.</li>
+                        <li>Recommended: Sturdy hiking boots, 2L water, sun protection, and jacket.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Side: Booking Form Container -->
+            <div class="right-column">
+                <div class="booking-card">
+                    <div class="booking-header">
+                        Reserve This Adventure
+                    </div>
+                    <div class="booking-body">
+                        <div class="price-display">
+                            R 850.00 <span class="price-unit">/ person</span>
+                        </div>
+
+                        <form id="bookingForm">
+                            <div class="form-group">
+                                <label for="tourDate">Select Date</label>
+                                <input type="date" id="tourDate" class="form-control" value="2026-09-15">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="guestSelect">Number of Guests</label>
+                                <select id="guestSelect" class="form-control" onchange="updateBookingTotal()">
+                                    <option value="1">1 Adult</option>
+                                    <option value="2" selected>2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                </select>
+                            </div>
+
+                            <div class="addon-group">
+                                <label class="addon-title">Optional Add-ons</label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="addonCableway" value="240" onchange="updateBookingTotal()">
+                                    Cableway Down Ticket (+R240)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="addonLunch" value="150" checked onchange="updateBookingTotal()">
+                                    Packed Eco-Lunch (+R150)
+                                </label>
+                            </div>
+
+                            <div class="summary-box">
+                                <div class="summary-line" id="baseCalculationSummary">Base (2 x R850): R1,700.00</div>
+                                <div class="summary-total" id="totalCalculationSummary">Total Amount: R1,850.00</div>
+                            </div>
+
+                            <button type="button" class="btn-cyan" onclick="alert('Reservation request submitted successfully!')">BOOK NOW</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Adventure Escape SA. All Rights Reserved. | Western Cape, South Africa
+    </footer>
+
+    <script>
+        function updateBookingTotal() {
+            const basePrice = 850;
+            const guestCount = parseInt(document.getElementById('guestSelect').value) || 1;
+            
+            const cablewayAddon = document.getElementById('addonCableway').checked ? 240 : 0;
+            const lunchAddon = document.getElementById('addonLunch').checked ? 150 : 0;
+
+            const baseTotal = basePrice * guestCount;
+            const addonsTotal = (cablewayAddon + lunchAddon) * guestCount;
+            const grandTotal = baseTotal + addonsTotal;
+
+            document.getElementById('baseCalculationSummary').textContent = `Base (${guestCount} x R850): R${baseTotal.toLocaleString('en-ZA', {minimumFractionDigits: 2})}`;
+            document.getElementById('totalCalculationSummary').textContent = `Total Amount: R${grandTotal.toLocaleString('en-ZA', {minimumFractionDigits: 2})}`;
+        }
+
+        // Initialize total on page load
+        updateBookingTotal();
+    </script>
+
+</body>
+</html>

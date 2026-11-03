@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Escape SA - Contact Us</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F7F4EB;
+            color: #0B132B;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Standardized Navigation Header */
+        header {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.8rem;
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #D87040;
+            border-bottom: 2px solid #D87040;
+            padding-bottom: 4px;
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Page Title */
+        .page-title-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .page-title-section h1 {
+            color: #0B132B;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .page-title-section p {
+            color: #64748B;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Two Column Layout */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        /* Left Column - Contact Info Card */
+        .info-card {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-card h2 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .info-card .subtitle {
+            color: #00E5E8;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .icon-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #D87040;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-circle svg {
+            width: 16px;
+            height: 16px;
+            fill: #FFFFFF;
+        }
+
+        .item-text h3 {
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .item-text p {
+            font-size: 11px;
+            color: #CBD5E1;
+            font-weight: 500;
+        }
+
+        /* Map Container */
+        .map-box {
+            margin-top: auto;
+            border-radius: 6px;
+            overflow: hidden;
+            height: 140px;
+            background-color: #E2E8F0;
+        }
+
+        .map-box iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Right Column - Form Card */
+        .form-card {
+            background-color: #FFFFFF;
+            border: 2px solid #5A2A18;
+            border-radius: 8px;
+            padding: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-card h2 {
+            color: #0B132B;
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 9px 12px;
+            background-color: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #1E293B;
+            outline: none;
+        }
+
+        textarea.form-control {
+            height: 90px;
+            resize: none;
+        }
+
+        /* Error and Success Feedback Messages */
+        .error-message {
+            color: #D9534F;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .success-message {
+            color: #28A745;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        /* Action Button */
+        .btn-cyan {
+            background-color: #00E5E8;
+            color: #0B132B;
+            border: none;
+            padding: 12px 0;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cyan:hover {
+            background-color: #00C4C7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0B132B;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Standardized Header -->
+    <header>
+        <a href="index.html" class="logo">ADVENTURE ESCAPE SA</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="overview.html">Overview</a></li>
+                <li><a href="fees.html">Calculate Fees</a></li>
+                <li><a href="contact.html" class="active">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-title-section">
+            <h1>Get in Touch with Us</h1>
+            <p>Have questions or custom booking requests? We're here to help.</p>
+        </section>
+
+        <div class="contact-container">
+            <!-- Left Side: Contact Information -->
+            <div class="info-card">
+                <h2>Contact Information</h2>
+                <p class="subtitle">Reach out directly via phone, email, or visit our office.</p>
+
+                <div class="contact-item">
+                    <div class="icon-circle">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <div class="item-text">
+                        <h3>Office Address</h3>
+                        <p>12 Waterfront Way, Cape Town, 8001</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="icon-circle">
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <div class="item-text">
+                        <h3>Phone Number</h3>
+                        <p>+27 (0)21 555 0199</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="icon-circle">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <div class="item-text">
+                        <h3>Email Address</h3>
+                        <p>info@adventureescapesa.co.za</p>
+                    </div>
+                </div>
+
+                <div class="map-box">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13248.835338165518!2d18.4125!3d-33.9045!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc676239f15053%3A0xb36b3db480453d8e!2sV%26A%20Waterfront%2C%20Cape%20Town!5e0!3m2!1sen!2sza!4v1700000000000!5m2!1sen!2sza" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Right Side: Send Us a Message Form -->
+            <div class="form-card">
+                <h2>Send Us a Message</h2>
+
+                <form id="contactForm" onsubmit="event.preventDefault(); validateContactForm();">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" class="form-control" placeholder="Your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="text" id="email" class="form-control" placeholder="name@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" placeholder="General Inquiry / Package Question">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" placeholder="Type your message here..."></textarea>
+                    </div>
+
+                    <div id="formError" class="error-message"></div>
+                    <div id="formSuccess" class="success-message"></div>
+
+                    <button type="submit" class="btn-cyan">SUBMIT INQUIRY</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Adventure Escape SA. All Rights Reserved. | Western Cape, South Africa
+    </footer>
+
+    <script>
+        function validateContactForm() {
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            const errorDiv = document.getElementById('formError');
+            const successDiv = document.getElementById('formSuccess');
+
+            // Reset notifications
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            // Validation checks
+            if (!name || !email || !subject || !message) {
+                errorDiv.textContent = "Error: All fields are required. Please fill in all empty sections.";
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            // Email format check
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                errorDiv.textContent = "Error: Please enter a valid email address (e.g. name@example.com).";
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            // Success feedback
+            successDiv.textContent = "Success! Your inquiry has been submitted. We will contact you shortly.";
+            successDiv.style.display = 'block';
+
+            // Clear form fields after submission
+            document.getElementById('contactForm').reset();
+        }
+    </script>
+
+</body>
+</html>

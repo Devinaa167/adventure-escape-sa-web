@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview | Adventure Escape SA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #F7F4EB;
+      color: #0B132B;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background-color: #0B132B;
+      color: #FFFFFF;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.8rem;
+    }
+
+    nav a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: #D87040;
+      border-bottom: 2px solid #D87040;
+      padding-bottom: 4px;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+    }
+
+    .hero-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-title h1 {
+      font-size: 2.2rem;
+      color: #0B132B;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-title p {
+      color: #555555;
+      font-size: 1rem;
+    }
+
+    .category-label {
+      font-size: 1.3rem;
+      color: #D87040;
+      font-weight: 800;
+      margin: 2rem 0 1.2rem 0;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #5A2A18;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Card Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .card {
+      background-color: #FFFFFF;
+      border: 1.5px solid #5A2A18;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      color: #D87040;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Badges */
+    .badge-container {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .badge {
+      background-color: #F0F4F8;
+      color: #64748B;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: #4A5568;
+      line-height: 1.45;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .price-text {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0B132B;
+    }
+
+    .btn-view {
+      background-color: #00E5E8;
+      color: #0B132B;
+      padding: 0.65rem 0;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .btn-view:hover {
+      background-color: #00C4C7;
+    }
+
+    /* Data Table Styling */
+    .table-container {
+      margin-top: 3.5rem;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+    }
+
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #FFFFFF;
+      border: 1.5px solid #5A2A18;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .overview-table th {
+      background-color: #0B132B;
+      color: #FFFFFF;
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .overview-table td {
+      padding: 12px 18px;
+      font-size: 0.88rem;
+      color: #2D3748;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .overview-table tr:nth-child(even) {
+      background-color: #F8FAFC;
+    }
+
+    .overview-table tr:hover {
+      background-color: #F1F5F9;
+    }
+
+    /* Modal Component */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 19, 43, 0.75);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #FFFFFF;
+      padding: 2rem;
+      border-radius: 8px;
+      border: 2px solid #5A2A18;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #A0AEC0;
+    }
+
+    .modal-title {
+      color: #D87040;
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+
+    .modal-price {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #0B132B;
+      margin-bottom: 1rem;
+    }
+
+    .modal-desc {
+      font-size: 0.9rem;
+      color: #4A5568;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .modal-includes {
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      color: #2D3748;
+    }
+
+    .modal-includes li {
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-book {
+      background-color: #D87040;
+      color: white;
+      border: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    .btn-close {
+      padding: 0.65rem 1.2rem;
+      border: 1px solid #CBD5E0;
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0B132B;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.85rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 992px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">ADVENTURE ESCAPE SA</a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="overview.html" class="active">Overview</a></li>
+        <li><a href="fees.html">Calculate Fees</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero-title">
+      <h1>Explore Our Adventure Packages</h1>
+      <p>Discover guided hiking, kayaking, ziplining, and eco-tours across the Western Cape.</p>
+    </div>
+
+    <!-- SECTION 1: ADVENTURE PACKAGES -->
+    <h2 class="category-label">Adventure Packages (R1,500)</h2>
+    <div class="cards-grid">
+
+      <!-- Card 1: Ultimate Adventure Day -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=600&q=80" alt="Ultimate Adventure Day" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Ultimate Adventure Day</h3>
+          <div class="badge-container">
+            <span class="badge">Full-Day</span>
+            <span class="badge">Guided</span>
+          </div>
+          <p class="card-desc">Full-day guided hike, ziplining, and kayaking in Western Cape reserves. Includes safety gear and lunch.</p>
+          <div class="card-footer">
+            <span class="price-text">From R1,500 / person</span>
+            <button class="btn-view" onclick="openModal('Ultimate Adventure Day', 'R1,500', 'Full-day guided hike, ziplining, and kayaking in Western Cape reserves.', ['Guided hiking trail', 'Ziplining experience', 'Kayaking route', 'Lunch provided', 'Safety briefing & full equipment hire'])">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Family Explorer Package -->
+      <div class="card">
+        <img src="https://capetowninsider.co.za/images/posts/best-family-friendly-activities-cape-town.webp" alt="Family Explorer Package" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Family Explorer Package</h3>
+          <div class="badge-container">
+            <span class="badge">Half-Day</span>
+            <span class="badge">Family Friendly</span>
+          </div>
+          <p class="card-desc">Nature walks, obstacle courses, picnic areas, family games, and guided wildlife spotting for all ages.</p>
+          <div class="card-footer">
+            <span class="price-text">From R1,500 / person</span>
+            <button class="btn-view" onclick="openModal('Family Explorer Package', 'R1,500', 'A fun-filled outdoor experience designed specifically for families.', ['Nature walk', 'Obstacle course', 'Picnic area access', 'Family games', 'Guided wildlife spotting'])">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Mountain Adventure Package -->
+      <div class="card">
+        <img src="https://the-shooting-star.com/wp-content/uploads/2020/01/img_2398.jpg" alt="Mountain Adventure Package" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Mountain Adventure Package</h3>
+          <div class="badge-container">
+            <span class="badge">Full-Day</span>
+            <span class="badge">Advanced</span>
+          </div>
+          <p class="card-desc">High-altitude mountain hiking, scenic viewpoints, rock scrambling, and expert guide supervision.</p>
+          <div class="card-footer">
+            <span class="price-text">From R1,500 / person</span>
+            <button class="btn-view" onclick="openModal('Mountain Adventure Package', 'R1,500', 'A guided mountain adventure for dedicated outdoor enthusiasts.', ['Mountain hiking trail', 'Scenic panoramic viewpoints', 'Rock scrambling routes', 'Safety gear provided', 'Professional mountain guide'])">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Corporate Team Challenge -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Corporate Team Challenge" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Corporate Team Challenge</h3>
+          <div class="badge-container">
+            <span class="badge">Full-Day</span>
+            <span class="badge">Team Building</span>
+          </div>
+          <p class="card-desc">Team obstacle course, orienteering challenge, raft-building, leadership exercises, and team awards.</p>
+          <div class="card-footer">
+            <span class="price-text">From R1,500 / person</span>
+            <button class="btn-view" onclick="openModal('Corporate Team Challenge', 'R1,500', 'Team-building outdoor activities designed for businesses and organisations.', ['Team obstacle course', 'Orienteering challenge', 'Raft-building activity', 'Leadership exercises', 'Team awards presentation'])">View Details</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 2: INDIVIDUAL ACTIVITIES -->
+    <h2 class="category-label">Individual Activities (R750)</h2>
+    <div class="cards-grid">
+
+      <!-- Card 5: Ziplining Adventure -->
+      <div class="card">
+        <img src="https://www.skiworldahrntal.it/_ipx/f_webp&q_80&s_1920x1080/page/fileadmin/user_upload/Klausberg_-___Martin_Zimmerhofer__11_.jpg" alt="Ziplining Adventure" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Ziplining Adventure</h3>
+          <div class="badge-container">
+            <span class="badge">2-3 Hours</span>
+            <span class="badge">Moderate</span>
+          </div>
+          <p class="card-desc">Fly over forest canopies with breathtaking valley views. Includes safety briefing and instructors.</p>
+          <div class="card-footer">
+            <span class="price-text">From R750 / person</span>
+            <button class="btn-view" onclick="openModal('Ziplining Adventure', 'R750', 'Experience breathtaking forest canopy views while ziplining.', ['Safety briefing', 'Equipment hires', 'Professional instructors'])">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6: Kayaking Experience -->
+      <div class="card">
+        <img src="https://kayakingcapetown.com/images/kayaking-cape-town-prices-what-influences-the-cost-hero.webp" alt="Kayaking Experience" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Kayaking Experience</h3>
+          <div class="badge-container">
+            <span class="badge">Half-Day</span>
+            <span class="badge">Guided</span>
+          </div>
+          <p class="card-desc">Paddle through pristine Western Cape waters along guided river and lake routes with safety gear.</p>
+          <div class="card-footer">
+            <span class="price-text">From R750 / person</span>
+            <button class="btn-view" onclick="openModal('Kayaking Experience', 'R750', 'Paddle through scenic Western Cape waterways.', ['Kayak & paddle hire', 'Safety equipment', 'Guided river/lake route'])">View Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7: Rock Climbing Session -->
+      <div class="card">
+        <img src="https://t3.ftcdn.net/jpg/01/24/29/70/360_F_124297029_9Uz7upTlsM6Q37r4Q2aof3V9mIgfoGNn.jpg" alt="Rock Climbing Session" class="card-img">
+        <div class="card-body">
+          <h3 class="card-title">Rock Climbing Session</h3>
+          <div class="badge-container">
+            <span class="badge">Half-Day</span>
+            <span class="badge">Instructed</span>
+          </div>
+          <p class="card-desc">Master climbing and belaying techniques on natural rock faces under expert instruction.</p>
+          <div class="card-footer">
+            <span class="price-text">From R750 / person</span>
+            <button class="btn-view" onclick="openModal('Rock Climbing Session', 'R750', 'Learn climbing techniques on natural rock faces.', ['Climbing harness & shoes', 'Safety instruction & belaying'])">View Details</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 3: HTML DATA TABLE FOR RUBRIC COMPLIANCE -->
+    <section class="table-container">
+      <h2 class="category-label">Package Pricing & Summary Overview</h2>
+      <table class="overview-table">
+        <thead>
+          <tr>
+            <th>Package / Activity Name</th>
+            <th>Type</th>
+            <th>Duration</th>
+            <th>Standard Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ultimate Adventure Day</strong></td>
+            <td>Adventure Package</td>
+            <td>Full-Day</td>
+            <td>R1,500 per person</td>
+          </tr>
+          <tr>
+            <td><strong>Family Explorer Package</strong></td>
+            <td>Adventure Package</td>
+            <td>Half-Day</td>
+            <td>R1,500 per person</td>
+          </tr>
+          <tr>
+            <td><strong>Mountain Adventure Package</strong></td>
+            <td>Adventure Package</td>
+            <td>Full-Day</td>
+            <td>R1,500 per person</td>
+          </tr>
+          <tr>
+            <td><strong>Corporate Team Challenge</strong></td>
+            <td>Adventure Package</td>
+            <td>Full-Day</td>
+            <td>R1,500 per person</td>
+          </tr>
+          <tr>
+            <td><strong>Ziplining Adventure</strong></td>
+            <td>Individual Activity</td>
+            <td>2-3 Hours</td>
+            <td>R750 per person</td>
+          </tr>
+          <tr>
+            <td><strong>Kayaking Experience</strong></td>
+            <td>Individual Activity</td>
+            <td>Half-Day</td>
+            <td>R750 per person</td>
+          </tr>
+          <tr>
+            <td><strong>Rock Climbing Session</strong></td>
+            <td>Individual Activity</td>
+            <td>Half-Day</td>
+            <td>R750 per person</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modal Component -->
+  <div id="detailModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle" class="modal-title"></h2>
+      <p id="modalPrice" class="modal-price"></p>
+      <p id="modalDesc" class="modal-desc"></p>
+      <h4 style="margin-bottom:0.4rem; color:#0B132B;">What's Included:</h4>
+      <ul id="modalIncludes" class="modal-includes"></ul>
+      <div class="modal-actions">
+        <a href="fees.html" class="btn-book">Calculate Fee &amp; Book</a>
+        <button class="btn-close" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      &copy; 2026 Adventure Escape SA. All Rights Reserved. | Western Cape, South Africa
+  </footer>
+
+  <script>
+    function openModal(title, price, desc, includes) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalPrice').innerText = "Price: " + price + " / person";
+      document.getElementById('modalDesc').innerText = desc;
+      
+      const listContainer = document.getElementById('modalIncludes');
+      listContainer.innerHTML = '';
+      includes.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        listContainer.appendChild(li);
+      });
+
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('detailModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>
