@@ -73,7 +73,7 @@
     .hero-banner {
       position: relative;
       background: linear-gradient(rgba(11, 19, 43, 0.55), rgba(11, 19, 43, 0.55)), 
-                  url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+                url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
       height: 320px;
       border-radius: 4px;
       display: flex;
@@ -190,9 +190,32 @@
       margin-top: auto;
     }
 
+    /* Mobile Responsive Media Query */
     @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
       .cards-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero-banner {
+        height: 260px;
+        padding: 1rem;
+      }
+
+      .hero-banner h1 {
+        font-size: 1.5rem;
       }
     }
   </style>
