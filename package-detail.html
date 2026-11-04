@@ -34,18 +34,25 @@
             font-weight: 800;
             font-size: 15px;
             letter-spacing: 0.5px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
         }
 
         nav a {
             color: #FFFFFF;
             text-decoration: none;
             font-size: 11px;
-            margin-left: 20px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            transition: color 0.2s;
         }
 
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: #E27227;
         }
 
@@ -276,16 +283,31 @@
             font-weight: 700;
         }
 
+        /* Mobile Responsive Media Query */
         @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                padding: 16px 20px;
+                gap: 12px;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
             .detail-grid {
                 grid-template-columns: 1fr;
             }
-            header {
-                flex-direction: column;
-                gap: 12px;
+
+            .hero-image-container {
+                height: 200px;
             }
-            nav a {
-                margin: 0 6px;
+
+            .page-title {
+                font-size: 18px;
             }
         }
     </style>
@@ -293,13 +315,15 @@
 <body>
 
     <header>
-        <div class="logo">ADVENTURE ESCAPE SA</div>
+        <a href="index.html" class="logo">ADVENTURE ESCAPE SA</a>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="overview.html">Overview</a>
-            <a href="fees.html">Calculate Fees</a>
-            <a href="contact.html">Contact Us</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="overview.html">Overview</a></li>
+                <li><a href="fees.html">Calculate Fees</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
         </nav>
     </header>
 
