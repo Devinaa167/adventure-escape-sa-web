@@ -201,10 +201,27 @@
             margin-top: auto;
         }
 
+        /* Mobile Responsive Media Query */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                gap: 12px;
+                padding: 1rem;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .calculator-card {
+                padding: 24px 20px;
+            }
+
+            .page-title-section h1 {
+                font-size: 1.4rem;
             }
         }
     </style>
