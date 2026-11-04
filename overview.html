@@ -340,15 +340,33 @@
       margin-top: auto;
     }
 
-    @media (max-width: 992px) {
+    /* Mobile Responsive Media Query */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
       .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title h1 {
+        font-size: 1.6rem;
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 992px) and (min-width: 769px) {
       .cards-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
